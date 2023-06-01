@@ -1,0 +1,52 @@
+﻿@model List<ProjVideoClub.Models.Filme>
+
+<h1>Catálogo de Filmes</h1>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <div>
+            Título:
+
+            <div class="float-end">
+                Filtrar por Categoria
+            </div>
+        </div>
+        <div>
+            @Html.TextBox("titulo")
+            <input type="submit" value="Procurar" />
+
+            <div class="float-end">
+                @Html.DropDownList("idCat", (SelectList)ViewBag.CAT, "Geral", new {@onchange="submit();"})
+            </div>
+        </div>
+
+
+    </div>
+
+    <br />
+    <table class="table table-hover align-middle mb-0 bg-white">
+        <thead class="bg-light">
+            <tr>
+                <th>Título</th>
+                <th>Categoria</th>
+                <th>Ano</th>
+                @*<th></th>*@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Titulo</td>
+                    <td>@item.Categoria.NomeCat</td>
+                    <td>@item.Ano</td>
+                    @*<td><a class="btn btn-link btn-rounded btn-sm fw-bold"
+                        data-mdb-ripple-color="dark"
+                        asp-action="" asp-route-id="@item.Id">Alugar</a>
+                    </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+}

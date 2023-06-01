@@ -1,0 +1,45 @@
+﻿<style>
+
+    .div-center {
+        width: 400px;
+        height: auto;
+        background-color: white;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        max-width: 100%;
+        max-height: 100%;
+        overflow: auto;
+        padding: 1em 2em;
+        border-bottom: 2px solid #ccc;
+        border-top: 2px solid #ccc;
+        border-left: 2px solid #ccc;
+        border-right: 2px solid #ccc;
+        display: table;
+    }
+
+    div.content {
+        display: table-cell;
+        vertical-align: middle;
+    }
+</style>
+
+<div class="div-center" style="border-radius: 25px;">
+    <div class="content">
+        <h3>Login</h3>
+        <hr />
+        @using (Html.BeginForm())
+        {
+            <label for="exampleInputEmail1">Email</label>
+            <input type="email" name="email" class="form-control" placeholder="Email">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Password">
+            <br />
+            <button type="submit" class="btn btn-primary">Entrar</button>
+            <span class="text-danger"><br /><br /> @ViewBag.INVALID</span>
+        }
+    </div>
+</div>

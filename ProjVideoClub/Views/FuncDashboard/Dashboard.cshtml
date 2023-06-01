@@ -1,0 +1,72 @@
+﻿@model List<ProjVideoClub.Models.RegistoAluguer>
+
+<a asp-area="" asp-controller="RegistoAlugueres" asp-action="Create" class="btn btn-primary">Novo Aluguer</a>
+<a asp-area="" asp-controller="Categorias" asp-action="Create" class="btn btn-primary">Inserir Categoria</a>
+<a asp-area="" asp-controller="Filmes" asp-action="Create" class="btn btn-primary">Adicionar Filmes</a>
+<a asp-area="" asp-controller="Utilizadores" asp-action="Create" class="btn btn-primary">Criar Conta Utilizador</a>
+<br />
+<br />
+
+<h1>Lista de Alugueres</h1>
+@{
+    <table class="table table-hover align-middle mb-0 bg-white">
+        <thead class="bg-light">
+            <tr>
+                <th>Título</th>
+                <th>Categoria</th>
+                <th>Utilizador</th>
+                <th>Data Início</th>
+                <th>Data Fim</th>
+                <th>Tempo Restante</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Filme.Titulo</td>
+                    <td>@item.Filme.Categoria.NomeCat</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="ms-0">
+                                <p class="fw-bold mb-1">@item.Utilizador.Nome</p>
+                                <p class="text-muted mb-0">@item.Utilizador.Email</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>@item.DataInicio</td>
+                    <td>@item.DataFim</td>
+                    <td>
+                        @if (item.DataFim >= DateTime.UtcNow.AddHours(1))
+                        {
+                            //Variável do tipo TimeSpan pois a subtração das duas datas produz um intervalo de tempo nao calendarizado
+                            //DateTime.UtcNow.AddHours(1) Por causa do GMT+1 (horário de verão)
+                            TimeSpan tempoRestante = (DateTime)item.DataFim - DateTime.UtcNow.AddHours(1);
+
+                            //Por forma a tirar os milisegundos foi necessário converter para string no formato da data pretendida
+                            //Aproveitei e embelezei a data usando escapes e as respetivas unidades temporais
+                            <h5>
+                                <span class="badge bg-success">@tempoRestante.ToString(@"dd\d\ hh\h\ mm\m\ ss\s")</span>
+                            </h5>
+                        }
+                        else
+                        {
+                            <h5>
+                                <span class="badge bg-secondary">Terminado</span>
+                            </h5>
+                        }
+                    </td>
+                    <td>
+                        @if (item.DataFim >= DateTime.UtcNow.AddHours(1))
+                        {
+                            <a class="btn btn-link btn-rounded btn-sm fw-bold"
+                            data-mdb-ripple-color="dark"
+                   asp-action="Terminar" asp-route-id="@item.Id">Terminar</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,16 @@
+﻿@using (Html.BeginForm())
+{
+	<a>Filme:</a>
+	<br />
+	@Html.DropDownList("idFilme", (SelectList)ViewBag.FILMES, "Escolha um filme")
+	<br />
+	<br />
+	<a>Data Fim:</a>
+	<br />
+	<input type="date" name="dataFim" required/> <br />
+	<br />
+	<span class="text-danger"> @ViewBag.ALERTA</span>
+	<br />
+	<input type="submit" value="Alugar" id="data" class="btn btn-primary"/>
+	
+}

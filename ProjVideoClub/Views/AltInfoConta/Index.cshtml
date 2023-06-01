@@ -1,0 +1,26 @@
+﻿@model ProjVideoClub.Models.Utilizador
+
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <div>
+            Nome <br>
+        <input asp-for="Nome">
+        </div>
+        <div>
+            Email <br>
+            <input asp-for="Email">
+        </div>
+        <div>
+            Password <br>
+            <input asp-for="Password">
+        </div>
+        <div>
+            <br>
+        @if (Model != null)
+        {
+            <input type="submit" value="Guardar informações" asp-action="Alterar">
+        }
+        </div>
+    </div>
+}

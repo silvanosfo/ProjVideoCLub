@@ -1,0 +1,44 @@
+﻿@model List<ProjVideoClub.Models.RegistoAluguer>
+
+<a asp-area="" asp-controller="CliAlugueres" asp-action="HistoricoAlugueres" asp-route-id="" class="btn btn-primary">Ver histórico</a>
+<a asp-area="" asp-controller="CliAlugueres" asp-action="AlugarFilmes" asp-route-id="" class="btn btn-primary">Alugar filme</a>
+<br />
+<h1>Filmes Alugados</h1>
+<br />
+@{
+    <table class="table table-hover align-middle mb-0 bg-white">
+        <thead class="bg-light">
+            <tr>
+                <th>Título</th>
+                <th>Categoria</th>
+                <th>Data Início</th>
+                <th>Data Fim</th>
+                <th>Tempo Restante</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Filme.Titulo</td>
+                    <td>@item.Filme.Categoria.NomeCat</td>
+                    <td>@item.DataInicio</td>
+                    <td>@item.DataFim</td>
+                    <td>@{
+                            //Variável do tipo TimeSpan pois a subtração das duas datas produz um intervalo de tempo nao calendarizado
+                            //DateTime.UtcNow.AddHours(1) Por causa do GMT+1 (horário de verão)
+                            TimeSpan tempoRestante = (DateTime)item.DataFim - DateTime.UtcNow.AddHours(1);
+
+                            //Por forma a tirar os milisegundos foi necessário converter para string no formato da data pretendida
+                            //Aproveitei e embelezei a data usando escapes e as respetivas unidades temporais
+                            <h5>
+                                <a class="badge bg-success">@tempoRestante.ToString(@"dd\d\ hh\h\ mm\m\ ss\s")</a>
+                            </h5>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

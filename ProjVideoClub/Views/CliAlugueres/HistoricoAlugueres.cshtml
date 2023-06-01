@@ -1,0 +1,28 @@
+﻿@model List<ProjVideoClub.Models.RegistoAluguer>
+
+<h1>Histórico de filmes alugados anteriormente</h1>
+<br />
+<br />
+@{
+    <table class="table table-hover align-middle mb-0 bg-white">
+        <thead class="bg-light">
+            <tr>
+                <th>Título</th>
+                <th>Categoria</th>
+                <th>Data Início</th>
+                <th>Data Fim</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Filme.Titulo</td>
+                    <td>@item.Filme.Categoria.NomeCat</td>
+                    <td>@item.DataInicio</td>
+                    <td>@item.DataFim</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
